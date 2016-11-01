@@ -8,8 +8,8 @@ module.exports = (robot) ->
 
   robot.router.post "/hubot/gitbucket-webhook", (req, res) =>
     if req.body
-      payload = JSON.parse req.body.payload
-
+      payload = req.body
+      console.log "Received webhook from GitBucket #{payload.sender.login}"
       if payload.comment
         robot.send {room: process.env.BOT_CHANNEL_ID},
           "#{payload.sender.login} #{payload.action} [comment](#{payload.comment.html_url}):\r\n" +
